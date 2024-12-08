@@ -1,6 +1,45 @@
-#logo {
-    width: 608px;
-    height: 400px;
-    -fx-border-color: black;
-    -fx-border-width: 5px;
+@font-face {
+    -fx-font-family: 'Montserrat';
+    src: url("../fonts/Montserrat-VariableFont_wght.ttf");
+}
+
+VBox {
+    -fx-font-family: Monserrat;
+    -fx-font-size: 18;
+    -fx-spacing: 15px;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 50%, #fffaeb, #ffeaad);
+}
+
+.button {
+    -fx-background-radius: 20px;;
+    -fx-font-weight: 900;
+    -fx-font-size: 1.2em;
+    -fx-cursor: hand;
+    -fx-padding: 10px 20px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 0, 0, 3, 4);
+}
+
+.button:hover {
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+#buttonGreen {
+    -fx-text-fill: #e1f2d5;
+    -fx-background-color: #376625;
+}
+
+#buttonGreen:hover {
+    -fx-text-fill: #13260d;
+    -fx-background-color: #5ca83a;
+}
+
+#buttonOrange {
+    -fx-text-fill: #fce6e4;
+    -fx-background-color: #b03125;
+}
+
+#buttonOrange:hover {
+    -fx-text-fill: #42120d;
+    -fx-background-color: #e55b4e;
 }
