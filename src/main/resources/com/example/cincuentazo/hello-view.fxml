@@ -5,14 +5,14 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="550.0" stylesheets="@styles/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="550.0" stylesheets="@styles/styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cincuentazo.controllers.HelloController">
    <children>
       <ImageView fitHeight="200.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/cincuentazo.png" />
          </image>
       </ImageView>
-       <Button fx:id="buttonGreen" styleClass="button" mnemonicParsing="false" text="JUGAR" />
-       <Button fx:id="buttonOrange" styleClass="button" mnemonicParsing="false" text="AYUDA" />
+       <Button fx:id="buttonGreen" mnemonicParsing="false" onAction="#onActionButtonGreen" styleClass="button" text="JUGAR" />
+       <Button fx:id="buttonOrange" mnemonicParsing="false" onAction="#onActionButtonOrange" styleClass="button" text="AYUDA" />
    </children>
 </VBox>

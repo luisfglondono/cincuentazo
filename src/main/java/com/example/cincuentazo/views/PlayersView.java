@@ -1,4 +1,47 @@
 package com.example.cincuentazo.views;
 
-public class PlayersView {
+import com.example.cincuentazo.controllers.PlayerController;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+
+public class PlayersView extends Stage {
+    /**
+     * The controller associated with this view.
+     */
+    private PlayerController playerController;
+
+
+    public PlayersView() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cincuentazo/players-view.fxml"));
+        Parent root = loader.load();
+        this.playerController = loader.getController();
+        this.setTitle("Cincuentazo");
+        Scene scene = new Scene(root);
+        this.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/cincuentazo/images/icon.png")));
+        this.setScene(scene);
+        this.show();
+    }
+    /**
+     * Gets the controller associated with this view.
+     *
+     * @return the playerController instance
+     */
+    public PlayerController getPlayerController() {
+        return this.playerController;
+    }
+
+    public static PlayersView getInstance() throws IOException {
+        return PlayerViewHolder.INSTANCE = new PlayersView();
+    }
+    /**
+     * Holder class for the singleton instance of PlayersView.
+     */
+    private static class PlayerViewHolder {
+        private static PlayersView INSTANCE;
+    }
 }
