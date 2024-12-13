@@ -12,13 +12,24 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * The GameView class represents the view for the game in the application.
+ * It extends the Stage class and is responsible for loading and displaying the game's view.
+ */
 public class GameView extends Stage {
     /**
      * The controller associated with this view.
      */
     private GameController gameController;
 
-
+    /**
+     * Constructs a new GameView and initializes its components.
+     * Loads the FXML file, sets the controller, title, icon, and scene, and displays the stage.
+     * Also sets the players in the game model.
+     *
+     * @param players the list of players to be set in the game model
+     * @throws IOException if the FXML file cannot be loaded
+     */
     public GameView(ArrayList<PlayerModel> players) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cincuentazo/game-view.fxml"));
         Parent root = loader.load();
@@ -38,7 +49,14 @@ public class GameView extends Stage {
     public GameController getGameController() {
         return this.gameController;
     }
-
+    /**
+     * Returns the singleton instance of GameView.
+     * If the instance does not exist, it creates a new one.
+     *
+     * @param players the list of players to be set in the game model
+     * @return the singleton instance of GameView
+     * @throws IOException if the FXML file cannot be loaded
+     */
     public static GameView getInstance(ArrayList<PlayerModel> players) throws IOException {
         return GameView.GameViewHolder.INSTANCE = new GameView(players);
     }

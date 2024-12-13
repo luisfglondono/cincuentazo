@@ -3,32 +3,133 @@ package com.example.cincuentazo.models;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * The GameModel class represents the state and logic of the game.
+ * It manages the players, cards, and game flow.
+ */
 public class GameModel {
+    /**
+     * The list of players in the game.
+     */
     private ArrayList<PlayerModel> players;
+    /**
+     * The matrix of cards available in the game.
+     */
     private ArrayList<ArrayList<Cards>> cardsMatrix;
+    /**
+     * The matrix of cards that have been played.
+     */
     private ArrayList<ArrayList<Cards>> playedCards;
+    /**
+     * The card that is currently played.
+     */
     private Cards playedCard;
+    /**
+     * The total points accumulated in the game.
+     */
     private int total;
+    /**
+     * The index of the current player's turn.
+     */
     private int currentTurn = 0;
+    /**
+     * The number of cards that have been selected.
+     */
     private int cardsSelected = 0;
+    /**
+     * The card that is given to the player.
+     */
     private Cards givenCard = null;
+    /**
+     * Indicates whether the game has ended.
+     */
     private boolean gameEnded = false;
-
+    /**
+     * Gets the player at the specified index.
+     *
+     * @param index the index of the player
+     * @return the PlayerModel instance
+     */
     public PlayerModel getPlayer(int index) {return this.players.get(index);}
+    /**
+     * Gets the number of players in the game.
+     *
+     * @return the number of players
+     */
     public int getPlayersSize() {return this.players.size();}
+    /**
+     * Sets the game ended status.
+     *
+     * @param gameEnded true if the game has ended, false otherwise
+     */
     public void setGameEnded(boolean gameEnded) {this.gameEnded = gameEnded;}
+    /**
+     * Gets the game ended status.
+     *
+     * @return true if the game has ended, false otherwise
+     */
     public boolean getGameEnded() {return this.gameEnded;}
+    /**
+     * Sets the given card.
+     *
+     * @param givenCard the card to be given
+     */
     public void setGivenCard(Cards givenCard) {this.givenCard = givenCard;}
+    /**
+     * Gets the given card.
+     *
+     * @return the given card
+     */
     public Cards getGivenCard() {return this.givenCard;}
+    /**
+     * Gets the number of cards selected.
+     *
+     * @return the number of cards selected
+     */
     public int getCardsSelected() {return cardsSelected;}
+    /**
+     * Increments the number of cards selected by one.
+     */
     public void setCardsSelected() {this.cardsSelected++;}
+    /**
+     * Gets the current turn.
+     *
+     * @return the current turn
+     */
     public int getCurrentTurn() {return this.currentTurn;}
+    /**
+     * Sets the current turn.
+     *
+     * @param currentTurn the current turn
+     */
     public void setCurrentTurn(int currentTurn) {this.currentTurn = currentTurn;}
+    /**
+     * Gets the total points.
+     *
+     * @return the total points
+     */
     public int getTotal() {return total;}
+    /**
+     * Sets the total points.
+     *
+     * @param total the total points
+     */
     public void setTotal(int total) {this.total = total;}
+    /**
+     * Gets the played card.
+     *
+     * @return the played card
+     */
     public Cards getPlayedCard() {return playedCard;}
+    /**
+     * Sets the played card.
+     *
+     * @param playedCard the played card
+     */
     public void setPlayedCard(Cards playedCard) {this.playedCard = playedCard;}
-
+    /**
+     * Constructs a new GameModel and initializes the card matrices.
+     */
     public GameModel() {
         String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
         cardsMatrix = new ArrayList<>();
@@ -83,10 +184,18 @@ public class GameModel {
             playedCards.add(rowCards);
         }
     }
+    /**
+     * Sets the players for the game and starts their threads.
+     *
+     * @param players the list of players to set
+     */
     public void setPlayers(ArrayList<PlayerModel> players) {
         this.players = players;
         startThreads();
     }
+    /**
+     * Starts the threads for each player and initializes their decks.
+     */
     public void startThreads(){
         for (PlayerModel player : this.players) {
             player.setDeck(getDeck());
@@ -98,6 +207,9 @@ public class GameModel {
         System.out.println("Cantidad de objetos PlayerModel " + this.players.size());
 
     }
+    /**
+     * Executes the first play of the game by selecting a random card and updating the game state.
+     */
     public void firstPlay(){
         Cards firstCard = getRandomCard();
         setPlayedCard(firstCard);
@@ -111,6 +223,9 @@ public class GameModel {
         updateBothMatrix();
         this.setGivenCard(getRandomCard());
     }
+    /**
+     * Executes the current player's turn, updating the game state accordingly.
+     */
     public void playerPlay(){
         PlayerModel player = this.players.get(this.getCurrentTurn());
         player.setTotal(this.getTotal());
@@ -134,14 +249,24 @@ public class GameModel {
         this.setGivenCard(getRandomCard());
         this.setCurrentTurn((this.getCurrentTurn() + 1) % this.players.size());
     }
+    /**
+     * Deletes the current player from the game and updates the game state.
+     */
     public void deletePlayer(){
-        System.out.println("El jugador " + this.players.get(this.getCurrentTurn()).getNickname() + " ha sido eliminado.");
+        System.out.println("------------------------------------------------------------------------------");
+        System.out.println("Mazo del jugador eliminado:");
+        this.players.get(this.getCurrentTurn()).getDeck().printDeckAttributes();
+        System.out.println("Total de la mesa: " + this.getTotal());
+        System.out.println(this.players.get(this.getCurrentTurn()).getNickname() + " ha sido eliminado.");
+        System.out.println("------------------------------------------------------------------------------");
         this.returnPlayerCardsToMatrix(this.players.get(this.getCurrentTurn()));
-        this.setCurrentTurn((this.getCurrentTurn() + 1) % this.players.size());
         this.players.remove(this.getCurrentTurn());
+        this.setCurrentTurn((this.getCurrentTurn()) % this.players.size());
         this.printCardsMatrixIds();
     }
-
+    /**
+     * Updates both the cards matrix and the played cards matrix with the current played card.
+     */
     public void updateBothMatrix(){
         for (ArrayList<Cards> suitCards : cardsMatrix) {
             for (int i = 0; i < suitCards.size(); i++) {
@@ -167,6 +292,11 @@ public class GameModel {
             }
         }
     }
+    /**
+     * Gets a random card from the cards matrix.
+     *
+     * @return a random card
+     */
     public Cards getRandomCard() {
         Random random = new Random();
         Cards card;
@@ -179,6 +309,9 @@ public class GameModel {
         this.setCardsSelected();
         return card;
     }
+    /**
+     * Prints the IDs of the cards in the cards matrix.
+     */
     public void printCardsMatrixIds() {
         System.out.println("Id de las cartas en la matriz cardsMatrix:");
         ArrayList<ArrayList<String>> idsByRow = new ArrayList<>();
@@ -200,6 +333,9 @@ public class GameModel {
         }
         System.out.println("Fin de la matriz cardsMatrix");
     }
+    /**
+     * Prints the IDs of the cards in the played cards matrix.
+     */
     public void printPlayedCardsMatrixIds() {
         System.out.println("Id de las cartas en la matriz playedCards:");
         ArrayList<ArrayList<String>> idsByRow = new ArrayList<>();
@@ -221,6 +357,11 @@ public class GameModel {
         }
         System.out.println("Fin de la matriz playedCards");
     }
+    /**
+     * Gets a deck of cards for a player.
+     *
+     * @return a list of cards representing the deck
+     */
     public ArrayList<Cards> getDeck() {
         ArrayList<Cards> deck = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
@@ -228,6 +369,11 @@ public class GameModel {
         }
         return deck;
     }
+    /**
+     * Prints the IDs of the cards in the player's deck.
+     *
+     * @param player the player whose deck IDs are to be printed
+     */
     public void printPlayerDeckIds(PlayerModel player) {
         ArrayList<String> cardIds = new ArrayList<>();
         Deck deck = player.getDeck();
@@ -243,6 +389,11 @@ public class GameModel {
 
         System.out.println("IDs de las cartas en el mazo del " + player.getNickname() + ": " + cardIds);
     }
+    /**
+     * Checks if all cards have been taken from the cards matrix.
+     *
+     * @return true if all cards have been taken, false otherwise
+     */
     public boolean allCardsTaken() {
         for (ArrayList<Cards> suitCards : cardsMatrix) {
             for (Cards card : suitCards) {
@@ -253,6 +404,11 @@ public class GameModel {
         }
         return true;
     }
+    /**
+     * Returns the player's cards to the cards matrix.
+     *
+     * @param player the player whose cards are to be returned
+     */
     public void returnPlayerCardsToMatrix(PlayerModel player) {
         ArrayList<Cards> deck = player.getDeck().getDeck();
         for (Cards card : deck) {
@@ -273,6 +429,9 @@ public class GameModel {
         }
         player.getDeck().getDeck().clear(); // Clear the player's deck after returning cards to the matrix
     }
+    /**
+     * Refills the cards matrix with cards from the played cards matrix.
+     */
     public void reFillCardsMatrix() {
         Cards lastCard = null;
         int lastRow = -1, lastCol = -1;
@@ -308,6 +467,12 @@ public class GameModel {
         }
         System.out.println("Se rellenó la matriz cardsMatrix con las cartas de la matriz playedCards.");
     }
+    /**
+     * Checks if the player can play a card.
+     *
+     * @param player the player to check
+     * @return true if the player can play a card, false otherwise
+     */
     public boolean canPlayCard(PlayerModel player) {
         ArrayList<Cards> deck = player.getDeck().getDeck();
         for (Cards card : deck) {
