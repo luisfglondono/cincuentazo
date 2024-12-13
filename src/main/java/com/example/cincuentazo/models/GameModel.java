@@ -14,6 +14,8 @@ public class GameModel {
     private Cards givenCard = null;
     private boolean gameEnded = false;
 
+    public PlayerModel getPlayer(int index) {return this.players.get(index);}
+    public int getPlayersSize() {return this.players.size();}
     public void setGameEnded(boolean gameEnded) {this.gameEnded = gameEnded;}
     public boolean getGameEnded() {return this.gameEnded;}
     public void setGivenCard(Cards givenCard) {this.givenCard = givenCard;}
@@ -84,7 +86,6 @@ public class GameModel {
     public void setPlayers(ArrayList<PlayerModel> players) {
         this.players = players;
         startThreads();
-        startGame();
     }
     public void startThreads(){
         for (PlayerModel player : this.players) {
@@ -97,8 +98,7 @@ public class GameModel {
         System.out.println("Cantidad de objetos PlayerModel " + this.players.size());
 
     }
-    public void startGame() {
-
+    public void firstPlay(){
         Cards firstCard = getRandomCard();
         setPlayedCard(firstCard);
         System.out.println("Primera carta:");
@@ -110,47 +110,38 @@ public class GameModel {
         }
         updateBothMatrix();
         this.setGivenCard(getRandomCard());
-        while (true) {
-            if (this.players.size() == 1) {
-                System.out.println("El juego ha terminado. Solo queda un jugador.");
-                this.setGameEnded(true);
-                break;
-            }
-            if (canPlayCard(this.players.get(this.getCurrentTurn())))
-            {
-                PlayerModel player = this.players.get(this.getCurrentTurn());
-                player.setTotal(this.getTotal());
-                player.setGivenCard(this.getGivenCard());
-                player.activate(this);
-
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    System.out.println("El controlador del juego fue interrumpido.");
-                    break;
-                }
-                this.setCardsSelected();
-                this.setPlayedCard(player.getPlayedCard());
-                this.setTotal(player.getTotal());
-                this.updateBothMatrix();
-                if (allCardsTaken()) {
-                    reFillCardsMatrix();
-                }
-                this.printCardsMatrixIds();
-                this.printPlayedCardsMatrixIds();
-                this.setGivenCard(getRandomCard());
-                this.setCurrentTurn((this.getCurrentTurn() + 1) % this.players.size());
-            }
-            else {
-                System.out.println("El jugador " + this.players.get(this.getCurrentTurn()).getNickname() + " ha sido eliminado.");
-                this.returnPlayerCardsToMatrix(this.players.get(this.getCurrentTurn()));
-                this.setCurrentTurn((this.getCurrentTurn() + 1) % this.players.size());
-                this.players.remove(this.getCurrentTurn());
-                this.printCardsMatrixIds();
-            }
+    }
+    public void playerPlay(){
+        PlayerModel player = this.players.get(this.getCurrentTurn());
+        player.setTotal(this.getTotal());
+        player.setGivenCard(this.getGivenCard());
+        player.activate(this);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            System.out.println("El controlador del juego fue interrumpido.");
 
         }
+        this.setCardsSelected();
+        this.setPlayedCard(player.getPlayedCard());
+        this.setTotal(player.getTotal());
+        this.updateBothMatrix();
+        if (allCardsTaken()) {
+            reFillCardsMatrix();
+        }
+        this.printCardsMatrixIds();
+        this.printPlayedCardsMatrixIds();
+        this.setGivenCard(getRandomCard());
+        this.setCurrentTurn((this.getCurrentTurn() + 1) % this.players.size());
     }
+    public void deletePlayer(){
+        System.out.println("El jugador " + this.players.get(this.getCurrentTurn()).getNickname() + " ha sido eliminado.");
+        this.returnPlayerCardsToMatrix(this.players.get(this.getCurrentTurn()));
+        this.setCurrentTurn((this.getCurrentTurn() + 1) % this.players.size());
+        this.players.remove(this.getCurrentTurn());
+        this.printCardsMatrixIds();
+    }
+
     public void updateBothMatrix(){
         for (ArrayList<Cards> suitCards : cardsMatrix) {
             for (int i = 0; i < suitCards.size(); i++) {

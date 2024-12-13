@@ -20,9 +20,66 @@ public class GameController {
     private GameModel gameModel;
 
     @FXML
+    private Button buttonStartGame;
+
+    @FXML
     private Button buttonNewGame;
 
     public GameModel getGameModel() {return this.gameModel;}
+    public void startGame() {
+        new Thread(() -> {
+            this.gameModel.firstPlay();
+            while (true) {
+                try {
+                    if (this.gameModel.getPlayersSize() == 1) {
+                        System.out.println("El juego ha terminado. Solo queda un jugador.");
+                        this.gameModel.setGameEnded(true);
+                        break;
+                    }
+                    if (this.gameModel.canPlayCard(this.gameModel.getPlayer(this.gameModel.getCurrentTurn()))) {
+                        this.gameModel.playerPlay();
+                    } else {
+                        this.gameModel.deletePlayer();
+                    }
+                } catch (Exception e) {
+                    System.err.println("An error occurred during the game: " + e.getMessage());
+                    e.printStackTrace();
+                    break; // Exit the loop on error
+                }
+            }
+        }).start();
+    }
+    /**
+    public void startGame() {
+        this.gameModel.firstPlay();
+        while (true) {
+            if (this.gameModel.getPlayersSize() == 1) {
+                System.out.println("El juego ha terminado. Solo queda un jugador.");
+                this.gameModel.setGameEnded(true);
+                break;
+            }
+            if (this.gameModel.canPlayCard(this.gameModel.getPlayer((this.gameModel.getCurrentTurn()))))
+            {
+                this.gameModel.playerPlay();
+            }
+            else {
+                this.gameModel.deletePlayer();
+            }
+
+        }
+    }
+     **/
+    @FXML
+    void onActionStartGame(ActionEvent event) {
+        buttonStartGame.setDisable(true);
+        AlertBox alertBox = new AlertBox();
+        boolean confirmed = alertBox.showConfirmation("Confirmacion", "¿Estas seguro que quieres empezar a jugar? (El tiempo empezará a correr y deberas lanzar y tomar una carta)");
+        if (confirmed) {
+            this.startGame();
+        } else {
+            buttonStartGame.setDisable(false);
+        }
+    }
 
     @FXML
     void onActionNewGameButton(ActionEvent event) {

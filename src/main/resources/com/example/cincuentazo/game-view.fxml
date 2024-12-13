@@ -17,5 +17,6 @@
   </rowConstraints>
    <children>
       <Button fx:id="buttonNewGame" mnemonicParsing="false" onAction="#onActionNewGameButton" text="Nuevo Juego" GridPane.rowIndex="1" />
+      <Button fx:id="buttonStartGame" mnemonicParsing="false" onAction="#onActionStartGame" text="Empezar Juego" GridPane.rowIndex="2" />
    </children>
 </GridPane>
