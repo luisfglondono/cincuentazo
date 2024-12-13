@@ -1,5 +1,6 @@
 package com.example.cincuentazo.controllers;
 
+import com.example.cincuentazo.factories.PlayerFactory;
 import com.example.cincuentazo.models.PlayerModel;
 import com.example.cincuentazo.views.GameView;
 import com.example.cincuentazo.views.PlayersView;
@@ -18,6 +19,7 @@ public class PlayerController {
     @FXML
     private Label informationLabel;
 
+    private PlayerFactory playerFactory = new PlayerFactory();
     private ArrayList<PlayerModel> players = new ArrayList<>();
 
     @FXML
@@ -38,10 +40,8 @@ public class PlayerController {
         {
             try
             {
-                PlayerModel player1 = new PlayerModel();
-                player1.setNickname("Jugador 1");
-                PlayerModel player2 = new PlayerModel();
-                player2.setNickname("Jugador 2");
+                PlayerModel player1 = playerFactory.createPlayer("Jugador 1");
+                PlayerModel player2 = playerFactory.createPlayer("Jugador 2");
                 this.players.add(player1);
                 this.players.add(player2);
                 GameView gameView = new GameView(players);
@@ -62,12 +62,9 @@ public class PlayerController {
         {
             try
             {
-                PlayerModel player1 = new PlayerModel();
-                player1.setNickname("Jugador 1");
-                PlayerModel player2 = new PlayerModel();
-                player2.setNickname("Jugador 2");
-                PlayerModel player3 = new PlayerModel();
-                player3.setNickname("Jugador 3");
+                PlayerModel player1 = playerFactory.createPlayer("Jugador 1");
+                PlayerModel player2 = playerFactory.createPlayer("Jugador 2");
+                PlayerModel player3 = playerFactory.createPlayer("Jugador 3");
                 this.players.add(player1);
                 this.players.add(player2);
                 this.players.add(player3);
@@ -89,14 +86,10 @@ public class PlayerController {
         {
             try
             {
-                PlayerModel player1 = new PlayerModel();
-                player1.setNickname("Jugador 1");
-                PlayerModel player2 = new PlayerModel();
-                player2.setNickname("Jugador 2");
-                PlayerModel player3 = new PlayerModel();
-                player3.setNickname("Jugador 3");
-                PlayerModel player4 = new PlayerModel();
-                player4.setNickname("Jugador 4");
+                PlayerModel player1 = playerFactory.createPlayer("Jugador 1");
+                PlayerModel player2 = playerFactory.createPlayer("Jugador 2");
+                PlayerModel player3 = playerFactory.createPlayer("Jugador 3");
+                PlayerModel player4 = playerFactory.createPlayer("Jugador 4");
                 this.players.add(player1);
                 this.players.add(player2);
                 this.players.add(player3);
