@@ -10,14 +10,27 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * The HelloController class is responsible for handling the initial view's actions.
+ * It manages the transition to the players' view and displays information about the game.
+ */
 public class HelloController {
-
+    /**
+     * Button to start the game.
+     */
     @FXML
     private Button buttonGreen;
-
+    /**
+     * Button to display information about the game.
+     */
     @FXML
     private Button buttonOrange;
-
+    /**
+     * Handles the action when the green button is clicked.
+     * Transitions to the players' view.
+     *
+     * @param event the action event triggered by the green button
+     */
     @FXML
     void onActionButtonGreen(ActionEvent event) {
         AlertBox alertBox = new AlertBox();
@@ -35,7 +48,12 @@ public class HelloController {
         }
 
     }
-
+    /**
+     * Handles the action when the orange button is clicked.
+     * Displays an alert with information about the game.
+     *
+     * @param event the action event triggered by the orange button
+     */
     @FXML
     void onActionButtonOrange(ActionEvent event) {
         new AlertBox().showAlert(
