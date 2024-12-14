@@ -12,6 +12,8 @@ public class PlayerModel extends Thread {
      * The deck of cards the player holds.
      */
     private Deck deck;
+
+    private boolean jugador = false;
     /**
      * The nickname of the player.
      */
@@ -149,6 +151,7 @@ public class PlayerModel extends Thread {
      */
     @Override
     public void run() {
+
         while (true) {
             if (!active) {
                 try {
@@ -160,26 +163,53 @@ public class PlayerModel extends Thread {
                 continue;
             }
 
-            try {
-                System.out.println(getNickname() + " está jugando.");
-                System.out.println(getTotal() + " es la cuenta total que tiene " + getNickname());
-                Thread.sleep(3000);
-                long startTime = System.currentTimeMillis();
-                playCard(this.getTotal());
-                takeCard(this.givenCard());
-                long elapsedTime = System.currentTimeMillis() - startTime;
+            if (jugador) {
+                try {
+                    System.out.println(getNickname() + " está jugando.");
+                    System.out.println(getTotal() + " es la cuenta total que tiene " + getNickname());
+                    Thread.sleep(3000);
+                    long startTime = System.currentTimeMillis();
+                    long elapsedTime = System.currentTimeMillis() - startTime;
 
-                if (elapsedTime < 2000) {
-                    Thread.sleep(2000 - elapsedTime);
+                    if (elapsedTime < 2000) {
+                        Thread.sleep(2000 - elapsedTime);
+                    }
+                } catch (InterruptedException e) {
+                    System.out.println(getNickname() + " fue interrumpido durante su turno.");
+                    return;
                 }
-            } catch (InterruptedException e) {
-                System.out.println(getNickname() + " fue interrumpido durante su turno.");
-                return;
+
+                active = false;
+            } else {
+                try {
+                    System.out.println(getNickname() + " está jugando.");
+                    System.out.println(getTotal() + " es la cuenta total que tiene " + getNickname());
+                    Thread.sleep(3000);
+                    long startTime = System.currentTimeMillis();
+                    playCard(this.getTotal());
+                    takeCard(this.givenCard());
+                    long elapsedTime = System.currentTimeMillis() - startTime;
+
+                    if (elapsedTime < 2000) {
+                        Thread.sleep(2000 - elapsedTime);
+                    }
+                } catch (InterruptedException e) {
+                    System.out.println(getNickname() + " fue interrumpido durante su turno.");
+                    return;
+                }
+
+                active = false;
             }
 
-            active = false;
         }
     }
+
+    public void setJugador(boolean jugador) {
+        this.jugador = jugador;
+    }
+
+    public boolean isJugador() {return jugador;}
+
     /**
      * Activates the player if the deck has the required number of cards.
      *
