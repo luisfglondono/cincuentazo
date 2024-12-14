@@ -5,9 +5,20 @@
 
 VBox {
     -fx-font-family: Monserrat;
-    -fx-font-size: 18;
+    -fx-font-size: 15;
     -fx-spacing: 15px;
     -fx-background-color: radial-gradient(center 50% 50%, radius 50%, #fffaeb, #ffeaad);
+}
+
+Pane {
+    -fx-font-family: Monserrat;
+    -fx-font-size: 13;
+    -fx-spacing: 15px;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 70%, #507a11, #7ab317);
+}
+
+.active {
+    -fx-border-color: #dbf79f;
 }
 
 .button {
@@ -32,6 +43,26 @@ VBox {
 #buttonGreen:hover {
     -fx-text-fill: #13260d;
     -fx-background-color: #5ca83a;
+}
+
+#buttonBlue {
+    -fx-text-fill: #d9f0f4;
+    -fx-background-color: #2a5e74;
+}
+
+#buttonBlue:hover {
+    -fx-text-fill: #274352;
+    -fx-background-color: #79c3d5;
+}
+
+#buttonRed {
+    -fx-text-fill: #ffe4e9;
+    -fx-background-color: #c0104c;
+}
+
+#buttonRed:hover {
+    -fx-text-fill: #891243;
+    -fx-background-color: #fc7092;
 }
 
 #buttonOrange {

@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cincuentazo.controllers.GameController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="850.0" stylesheets="@styles/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cincuentazo.controllers.GameController">
    <children>
-      <Button fx:id="buttonStartGame" layoutX="656.0" layoutY="622.0" mnemonicParsing="false" onAction="#onActionStartGame" text="Empezar Juego" />
-      <Button fx:id="buttonNewGame" layoutX="663.0" layoutY="573.0" mnemonicParsing="false" onAction="#onActionNewGameButton" text="Nuevo Juego" />
-      <HBox layoutX="175.0" layoutY="14.0" prefHeight="150.0" prefWidth="450.0" spacing="12.0">
+      <Button fx:id="buttonStartGame" layoutX="659.0" layoutY="613.0" mnemonicParsing="false" onAction="#onActionStartGame" text="Empezar Juego" />
+      <Button fx:id="buttonNewGame" layoutX="668.0" layoutY="560.0" mnemonicParsing="false" onAction="#onActionNewGameButton" text="Nuevo Juego" />
+      <HBox fx:id="player3" disable="true" layoutX="175.0" layoutY="14.0" prefHeight="150.0" prefWidth="450.0" spacing="12.0" visible="false">
          <children>
             <ImageView fitHeight="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -35,7 +35,7 @@
             </ImageView>
          </children>
       </HBox>
-      <HBox layoutX="-136.0" layoutY="240.0" prefHeight="150.0" prefWidth="450.0" spacing="12.0" style="-fx-rotate: 90;">
+      <HBox fx:id="player4" layoutX="-136.0" layoutY="240.0" prefHeight="150.0" prefWidth="450.0" spacing="12.0" style="-fx-rotate: 90;" visible="false">
          <children>
             <ImageView fitHeight="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -59,7 +59,7 @@
             </ImageView>
          </children>
       </HBox>
-      <HBox layoutX="485.0" layoutY="240.0" prefHeight="150.0" prefWidth="450.0" spacing="12.0" style="-fx-rotate: 90;">
+      <HBox fx:id="player2" layoutX="511.0" layoutY="240.0" prefHeight="150.0" prefWidth="450.0" spacing="12.0" style="-fx-rotate: 90;" visible="false">
          <children>
             <ImageView fitHeight="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -83,7 +83,7 @@
             </ImageView>
          </children>
       </HBox>
-      <HBox layoutX="174.0" layoutY="541.0" prefHeight="150.0" prefWidth="450.0" spacing="12.0">
+      <HBox fx:id="player1" layoutX="174.0" layoutY="506.0" prefHeight="170.0" prefWidth="450.0" spacing="12.0" style="-fx-border-width: 0 0 6 0; -fx-padding: 0 0 10 0;">
          <children>
             <ImageView fx:id="card0" fitHeight="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -121,7 +121,7 @@
             </ImageView>
          </children>
       </HBox>
-      <Label layoutX="375.0" layoutY="416.0" text="PUNTOS" />
-      <Label fx:id="points" layoutX="380.0" layoutY="434.0" />
+      <Label layoutX="354.0" layoutY="420.0" style="-fx-font-size: 20px; -fx-font-weight: 900; -fx-text-fill: white;" text="PUNTOS" />
+      <Label fx:id="points" alignment="CENTER" layoutX="373.0" layoutY="449.0" prefHeight="29.0" prefWidth="44.0" style="-fx-font-size: 20; -fx-font-weight: 900; -fx-text-fill: white;" />
    </children>
 </Pane>

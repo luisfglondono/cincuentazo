@@ -1,40 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="401.0" prefWidth="595.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cincuentazo.controllers.PlayerController">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-  </rowConstraints>
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@styles/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cincuentazo.controllers.PlayerController">
    <children>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="50.0" GridPane.rowIndex="1">
-         <children>
-            <Button mnemonicParsing="false" onAction="#onActionPlayer1Button" text="1 JUGADOR" />
-            <Button mnemonicParsing="false" onAction="#onActionPlayer2Button" text="2 JUGADORES" />
-            <Button mnemonicParsing="false" onAction="#onActionPlayer3Button" text="3 JUGADORES" />
-         </children>
-         <GridPane.margin>
-            <Insets />
-         </GridPane.margin>
-         <padding>
-            <Insets left="110.0" />
-         </padding>
-      </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <ImageView fitHeight="200.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/cincuentazo.png" />
+         </image>
+      </ImageView>
+      <HBox alignment="CENTER" spacing="10.0">
          <children>
             <Label fx:id="informationLabel" text="Cuantos jugadores quiere jugar" />
-            <Button mnemonicParsing="false" onAction="#onActionHelpButton" text="?" />
+            <Button fx:id="buttonRed" mnemonicParsing="false" onAction="#onActionHelpButton" text="?" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+         <children>
+            <Button fx:id="buttonGreen" mnemonicParsing="false" onAction="#onActionPlayer1Button" text="2 JUGADOR" />
+            <Button fx:id="buttonOrange" mnemonicParsing="false" onAction="#onActionPlayer2Button" text="3 JUGADORES" />
+            <Button fx:id="buttonBlue" mnemonicParsing="false" onAction="#onActionPlayer3Button" text="4 JUGADORES" />
          </children>
       </HBox>
    </children>
-</GridPane>
+</VBox>

@@ -1,7 +1,6 @@
 package com.example.cincuentazo.controllers;
 
 import com.example.cincuentazo.models.Cards;
-import com.example.cincuentazo.models.Deck;
 import com.example.cincuentazo.models.GameModel;
 import com.example.cincuentazo.models.PlayerModel;
 import com.example.cincuentazo.views.HelloView;
@@ -14,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -58,6 +58,18 @@ public class GameController {
     private Button buttonStartGame;
 
     @FXML
+    private HBox player1;
+
+    @FXML
+    private HBox player2;
+
+    @FXML
+    private HBox player3;
+
+    @FXML
+    private HBox player4;
+
+    @FXML
     private Label points;
     /**
      * Button to start a new game.
@@ -84,7 +96,7 @@ public class GameController {
         card3.setOnMousePressed(this::handleMousePressed);
 
         cardBack.setOnMousePressed(this::handleMousePressed);
-        points.setText("hola");
+
     }
 
     public void updateCards() {
@@ -181,6 +193,7 @@ public class GameController {
             updateCards();
 
             played = false;
+            player1.getStyleClass().remove("active");
         }
     }
 
@@ -188,6 +201,22 @@ public class GameController {
      * Starts the game in a new thread, managing the game loop and player actions.
      */
     public void startGame() {
+        System.out.println("gameModel.getPlayersSize() = " + gameModel.getPlayersSize());
+        
+        switch (gameModel.getPlayersSize()) {
+            case 2:
+                player2.setVisible(true);
+                break;
+            case 3:
+                player2.setVisible(true);
+                player3.setVisible(true);
+                break;
+            case 4:
+                player2.setVisible(true);
+                player3.setVisible(true);
+                player4.setVisible(true);
+                break;
+        }
 
         new Thread(() -> {
             this.gameModel.firstPlay();
@@ -204,8 +233,30 @@ public class GameController {
                         updateCards();
                         if (this.gameModel.getCurrentTurn() != 0) {
                             this.gameModel.playerPlay();
+                        } else {
+                            if (!player1.getStyleClass().contains("active")) {
+                                player1.getStyleClass().add("active");
+                            }
                         }
                     } else {
+
+                        String nickname = gameModel.getPlayer(gameModel.getCurrentTurn()).getNickname();
+
+                        switch (nickname) {
+                            case "Jugador 1":
+                                player1.getStyleClass().remove("active");
+                                player1.setVisible(false);
+                                break;
+                            case "Jugador 2":
+                                player2.setVisible(false);
+                                break;
+                            case "Jugador 3":
+                                player3.setVisible(false);
+                                break;
+                            case "Jugador 4":
+                                player4.setVisible(false);
+                                break;
+                        }
 
                         this.gameModel.deletePlayer();
                     }

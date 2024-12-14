@@ -134,7 +134,7 @@ public class GameModel {
         String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
         cardsMatrix = new ArrayList<>();
         playedCards = new ArrayList<>();
-        this.total = 50;
+        this.total = 0;
 
         for (String suit : suits) {
             ArrayList<Cards> suitCards = new ArrayList<>();
