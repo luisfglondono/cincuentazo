@@ -7,6 +7,9 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Class for testing DeckTest.
+ */
 class DeckTest {
     ArrayList<Cards> cardsList;
     Deck deck;
@@ -15,6 +18,9 @@ class DeckTest {
     Cards card1;
     Cards card2;
 
+    /**
+     * Initialize the attributes.
+     */
     @BeforeEach
     public void setUp() {
         cardsList = new ArrayList<>();
@@ -31,6 +37,9 @@ class DeckTest {
         deck.setDeck(cardsList);
     }
 
+    /**
+     * Test to validate the deck.
+     */
     @Test
     void testGetCardDeck() {
         assertEquals(card0, deck.getCardAt(0));
@@ -38,6 +47,9 @@ class DeckTest {
         assertEquals(card2, deck.getCardAt(2));
     }
 
+    /**
+     * Test to validate that the card changes at the specified position.
+     */
     @Test
     void testSetCardDeck() {
         Cards card0 = new Cards("Diamonds", 1, "A", 10);

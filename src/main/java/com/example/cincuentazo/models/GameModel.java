@@ -250,6 +250,9 @@ public class GameModel {
         this.setCurrentTurn((this.getCurrentTurn() + 1) % this.players.size());
     }
 
+    /**
+     * Method to update the game state.
+     */
     public void updateData() {
         PlayerModel player = this.players.get(0);
 

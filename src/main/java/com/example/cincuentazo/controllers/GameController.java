@@ -24,27 +24,20 @@ import java.util.ArrayList;
  * It handles the game flow, player actions, and transitions between views.
  */
 public class GameController {
-
     @FXML
     private ImageView card0;
-
     @FXML
     private ImageView card1;
-
     @FXML
     private ImageView card2;
-
     @FXML
     private ImageView card3;
-
     @FXML
     private ImageView cardBack;
-
     @FXML
     private ImageView cardGame;
 
     private int cardIndex;
-
     private boolean played = false;
 
     /**
@@ -89,6 +82,10 @@ public class GameController {
      */
     public GameModel getGameModel() {return this.gameModel;}
 
+    /**
+     * Add mouse events when the window starts.
+     */
+
     public void initialize() {
         card0.setOnMousePressed(this::handleMousePressed);
         card1.setOnMousePressed(this::handleMousePressed);
@@ -99,6 +96,9 @@ public class GameController {
 
     }
 
+    /**
+     * Update the card images and the counter.
+     */
     public void updateCards() {
         ArrayList<Cards> deckPlayer = gameModel.getPlayer(0).getDeck().getDeck();
 
@@ -132,6 +132,10 @@ public class GameController {
         }
     }
 
+    /**
+     * "Mouse listener, check if the card is valid and played."
+     * @param event mouse event
+     */
     public void handleMousePressed(MouseEvent event) {
         PlayerModel player = gameModel.getPlayer(0);
 
@@ -309,7 +313,4 @@ public class GameController {
         }
 
     }
-
-
-
 }
