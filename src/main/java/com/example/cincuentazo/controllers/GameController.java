@@ -1,7 +1,6 @@
 package com.example.cincuentazo.controllers;
 
 import com.example.cincuentazo.models.Cards;
-import com.example.cincuentazo.models.Deck;
 import com.example.cincuentazo.models.GameModel;
 import com.example.cincuentazo.models.PlayerModel;
 import com.example.cincuentazo.views.HelloView;
@@ -14,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -24,27 +24,20 @@ import java.util.ArrayList;
  * It handles the game flow, player actions, and transitions between views.
  */
 public class GameController {
-
     @FXML
     private ImageView card0;
-
     @FXML
     private ImageView card1;
-
     @FXML
     private ImageView card2;
-
     @FXML
     private ImageView card3;
-
     @FXML
     private ImageView cardBack;
-
     @FXML
     private ImageView cardGame;
 
     private int cardIndex;
-
     private boolean played = false;
 
     /**
@@ -56,6 +49,18 @@ public class GameController {
      */
     @FXML
     private Button buttonStartGame;
+
+    @FXML
+    private HBox player1;
+
+    @FXML
+    private HBox player2;
+
+    @FXML
+    private HBox player3;
+
+    @FXML
+    private HBox player4;
 
     @FXML
     private Label points;
@@ -77,6 +82,10 @@ public class GameController {
      */
     public GameModel getGameModel() {return this.gameModel;}
 
+    /**
+     * Add mouse events when the window starts.
+     */
+
     public void initialize() {
         card0.setOnMousePressed(this::handleMousePressed);
         card1.setOnMousePressed(this::handleMousePressed);
@@ -84,9 +93,12 @@ public class GameController {
         card3.setOnMousePressed(this::handleMousePressed);
 
         cardBack.setOnMousePressed(this::handleMousePressed);
-        points.setText("hola");
+
     }
 
+    /**
+     * Update the card images and the counter.
+     */
     public void updateCards() {
         ArrayList<Cards> deckPlayer = gameModel.getPlayer(0).getDeck().getDeck();
 
@@ -120,6 +132,10 @@ public class GameController {
         }
     }
 
+    /**
+     * "Mouse listener, check if the card is valid and played."
+     * @param event mouse event
+     */
     public void handleMousePressed(MouseEvent event) {
         PlayerModel player = gameModel.getPlayer(0);
 
@@ -181,6 +197,7 @@ public class GameController {
             updateCards();
 
             played = false;
+            player1.getStyleClass().remove("active");
         }
     }
 
@@ -188,6 +205,22 @@ public class GameController {
      * Starts the game in a new thread, managing the game loop and player actions.
      */
     public void startGame() {
+        System.out.println("gameModel.getPlayersSize() = " + gameModel.getPlayersSize());
+        
+        switch (gameModel.getPlayersSize()) {
+            case 2:
+                player2.setVisible(true);
+                break;
+            case 3:
+                player2.setVisible(true);
+                player3.setVisible(true);
+                break;
+            case 4:
+                player2.setVisible(true);
+                player3.setVisible(true);
+                player4.setVisible(true);
+                break;
+        }
 
         new Thread(() -> {
             this.gameModel.firstPlay();
@@ -204,8 +237,30 @@ public class GameController {
                         updateCards();
                         if (this.gameModel.getCurrentTurn() != 0) {
                             this.gameModel.playerPlay();
+                        } else {
+                            if (!player1.getStyleClass().contains("active")) {
+                                player1.getStyleClass().add("active");
+                            }
                         }
                     } else {
+
+                        String nickname = gameModel.getPlayer(gameModel.getCurrentTurn()).getNickname();
+
+                        switch (nickname) {
+                            case "Jugador 1":
+                                player1.getStyleClass().remove("active");
+                                player1.setVisible(false);
+                                break;
+                            case "Jugador 2":
+                                player2.setVisible(false);
+                                break;
+                            case "Jugador 3":
+                                player3.setVisible(false);
+                                break;
+                            case "Jugador 4":
+                                player4.setVisible(false);
+                                break;
+                        }
 
                         this.gameModel.deletePlayer();
                     }
@@ -258,7 +313,4 @@ public class GameController {
         }
 
     }
-
-
-
 }

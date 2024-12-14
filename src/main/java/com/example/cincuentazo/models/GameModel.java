@@ -134,7 +134,7 @@ public class GameModel {
         String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
         cardsMatrix = new ArrayList<>();
         playedCards = new ArrayList<>();
-        this.total = 50;
+        this.total = 0;
 
         for (String suit : suits) {
             ArrayList<Cards> suitCards = new ArrayList<>();
@@ -250,6 +250,9 @@ public class GameModel {
         this.setCurrentTurn((this.getCurrentTurn() + 1) % this.players.size());
     }
 
+    /**
+     * Method to update the game state.
+     */
     public void updateData() {
         PlayerModel player = this.players.get(0);
 
