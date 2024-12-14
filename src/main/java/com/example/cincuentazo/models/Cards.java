@@ -38,6 +38,10 @@ public class Cards {
         this.id = id;
         this.secondValue = secondValue;
     }
+
+    public String getImage() {
+        return "/com/example/cincuentazo/images/cards/" + type + "/" + id + ".png";
+    }
     /**
      * Gets the unique identifier of the card.
      *

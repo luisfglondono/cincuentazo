@@ -55,5 +55,19 @@ public class AlertBox implements AlertBoxInterface {
         Optional<ButtonType> result = alert.showAndWait();
         return result.isPresent() && result.get() == buttonTypeYes;
     }
+
+    public int showValueA() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Elige una opción");
+        alert.setHeaderText("¿Qué número prefieres?");
+        alert.setContentText("Selecciona 10 o 1:");
+        ButtonType buttonType10 = new ButtonType("10");
+        ButtonType buttonType1 = new ButtonType("1");
+
+        alert.getButtonTypes().setAll(buttonType10, buttonType1);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.isPresent() && result.get() == buttonType10 ? 10 : 1;
+    }
 }
 

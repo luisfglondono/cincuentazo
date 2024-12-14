@@ -1,6 +1,7 @@
 module com.example.cincuentazo {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.smartcardio;
 
 
     opens com.example.cincuentazo to javafx.fxml;
